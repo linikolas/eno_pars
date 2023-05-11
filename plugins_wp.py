@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import csv
 
 
-
 def get_html(url):
     'Спарсили текст всей страницы'
     r = requests.get(url)
@@ -18,6 +17,7 @@ def refined(s: str):
     rating_new = s.split(' ')[0]
     rating_new = rating_new.replace(',', '')
     return rating_new
+
 
 def write_scv(data):
     '''создаем файл, с префиксом "а" - добавлять в конец нужные элементы, 
@@ -34,7 +34,7 @@ def get_data(html):
     'вычленяем нужную информацию и создаем словарь для будущего файла'
     soup = BeautifulSoup(html, 'lxml')
     featur = soup.find_all('section')[1]
-    plugins = featur.find_all('article')
+    plugins = featur.find_all('article')  # find_all return list
 
     for plugin in plugins:
         name = plugin.find('h3').text
@@ -45,15 +45,13 @@ def get_data(html):
         data = {'name': name, 
                 'url': url,
                 'reviews': rating}
-        
-        write_scv(data)
-        
+
+        write_scv(data)      
+
 
 def main():
     url = 'https://wordpress.org/plugins/'
-    print(get_data(get_html(url)))
-
-
+    get_data(get_html(url))
 
 
 if __name__ == '__main__':
