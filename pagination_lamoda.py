@@ -54,10 +54,24 @@ def get_page_data(html):
 
 def main():
     'Пример реализации парсинга пагинацией'
+    # first exempl
     pattern = 'https://www.lamoda.ru/c/3044/clothes-pidzhaki-i-zhaketi/?page={}'
     for i in range(1, 3):
         url = pattern.format(str(i))
         get_page_data(get_html(url))
+
+    # second exempl
+    # url = 'some_link'
+    # while True:
+    #     get_page_data(get_html(url))
+    #     soup = BeautifulSoup(get_html(url), 'lxml')
+        
+    #     try:
+    #         pattern = 'Next' # import re
+    #         url = 'some_link' + soup.find('ul', class_='paginat').find('a', 
+    #         text=re.compile(pattern)).get('href') # find botton and add to link
+    #     except:
+    #         break
 
 
 if __name__ == '__main__':
